@@ -5,6 +5,15 @@ const cors = require("cors");
 const { Server } = require("socket.io");
 app.use(cors());
 
+const mysql = require("mysql");
+
+const db = mysql.createPool({
+  host: "211.223.50.18",
+  user: "HAN",
+  password: "1234",
+  database: "carping",
+});
+
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
@@ -17,12 +26,13 @@ io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
 
   socket.on("join_room", (data) => {
-    socket.join(data);
+    console.log(data);
+    socket.join(data); // 여기가 뭔가 조인? 방으로 들어가게 해주는 기능인 거 같아
     console.log(`User with ID: ${socket.id} joined room: ${data}`);
   });
 
   socket.on("send_message", (data) => {
-    // console.log(data);
+    console.log(data);
     socket.to(data.room).emit("receive_message", data);
   });
 
