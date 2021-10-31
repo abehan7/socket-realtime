@@ -11,7 +11,7 @@ const Chat = ({ socket, room, username }) => {
       const messageData = {
         room: room,
         author: username,
-        message: currentMessage,
+        message: currentMessage, // 여기서 이거 메세지 빼고 다 자동으로 들어가
         time:
           new Date(Date.now()).getHours() +
           ":" +
@@ -19,20 +19,31 @@ const Chat = ({ socket, room, username }) => {
       };
       //   아! 위에서 날짜 불러올꺼니까 기다린 다음에 처리해 달라는 의미인듯
       await socket.emit("send_message", messageData);
+      console.log(messageData);
       setMessageList((list) => [...list, messageData]);
       setcurrentMessage("");
     }
   };
   useEffect(() => {
     socket.on("receive_message", (data) => {
-      //   console.log(data);
+      console.log(`받은데이터${data}`);
       setMessageList((list) => [...list, data]);
     });
   }, [socket]);
+
+  useEffect(() => {
+    socket.on("first_messages", (Messages) => {
+      console.log(Messages);
+      Messages.forEach((message) => {
+        setMessageList((list) => [...list, message]);
+      });
+    });
+  }, []);
+
   return (
     <div className="chat-window">
       <div className="chat-header">
-        <p>Live Chat</p>
+        <p>carping</p>
       </div>
       <div className="chat-body">
         <SrcollToBottom className="message-container">
@@ -40,7 +51,7 @@ const Chat = ({ socket, room, username }) => {
             return (
               <div
                 className="message"
-                id={username === messageContent.author ? "you" : "other"}
+                id={username === messageContent.author ? "other" : "you"}
               >
                 <div>
                   <div className="message-content">
