@@ -57,6 +57,8 @@ io.on("connection", (socket) => {
       }
     );
     // setTimeout
+    // 여기에서 index 에서 1개를 빼야돼
+    // 소켓특성인거같아
     setTimeout(() => {
       const sqlSelect = "SELECT * FROM chat WHERE room = ?";
       db.query(sqlSelect, [data.room], (err, result) => {
