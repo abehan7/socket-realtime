@@ -8,8 +8,8 @@ app.use(cors());
 const mysql = require("mysql");
 
 const db = mysql.createPool({
-  host: "211.223.50.18",
-  user: "HAN",
+  host: "localhost",
+  user: "root",
   password: "1234",
   database: "carping",
 });
@@ -42,5 +42,5 @@ io.on("connection", (socket) => {
 });
 
 server.listen(3001, () => {
-  console.log("SERVER RUNNING");
+  console.log("SERVER RUNNING ON PORT 3001");
 });
