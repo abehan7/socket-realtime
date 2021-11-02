@@ -19,16 +19,27 @@ const Chat = ({ socket, room, username }) => {
       };
       //   아! 위에서 날짜 불러올꺼니까 기다린 다음에 처리해 달라는 의미인듯
       await socket.emit("send_message", messageData);
-      console.log(messageData);
+      // console.log(messageData);
       setMessageList((list) => [...list, messageData]);
       setcurrentMessage("");
     }
   };
   useEffect(() => {
+    socket.on("first_messages", (data) => {
+      console.log(data);
+    });
+  }, []);
+
+  useEffect(() => {
     socket.on("receive_message", (data) => {
-      console.log(`받은데이터${data}`);
+      console.log("받은데이터");
+      console.log(data);
+      console.log(username);
+      console.log(data.author);
+
       setMessageList((list) => [...list, data]);
     });
+    //이쪽에 이상이 있는거같아
   }, [socket]);
 
   useEffect(() => {

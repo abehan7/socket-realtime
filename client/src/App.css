@@ -51,8 +51,8 @@ body {
 }
 
 .chat-window {
-  width: 300px;
-  height: 420px;
+  width: 400px;
+  height: 600px;
 }
 
 .chat-window p {
@@ -67,14 +67,14 @@ body {
 }
 .chat-window .chat-header p {
   display: block;
-  padding: 0 1em 0 1em;
+  padding: 0 1em 0 2em;
   color: #fff;
   font-weight: 700;
   line-height: 45px;
 }
 
 .chat-window .chat-body {
-  height: calc(450px - (45px + 70px));
+  height: calc(600px - (45px + 70px));
   border: 1px solid #263238;
   background: #fff;
 
